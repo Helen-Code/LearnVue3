@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+<body>
+    <div id="app"></div>
+    
+    <template id="tml">
+        <!-- v-once 只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。 -->
+        <div>{{ count }}</div>
+        <div v-once>{{ count }}</div>
+        <button @click="addCount">+1</button>
+
+        <!-- v-text和把变量写在插值表达式中效果一样 -->
+        <div>{{ msg }}</div>
+        <div v-text="msg"></div>
+
+        <!-- v-html 可以将传入的数据当做html代码解析 -->
+        <div v-html="htl"></div>
+
+        <!-- v-pre 跳过这个元素和它的子元素的编译过程。一些静态的内容不需要编辑加这个指令可以加快编辑 -->
+        <div v-pre>{{ msg }}</div>
+
+        <!-- v-cloak不需要表达式，它会在vue实例结束编译时从绑定的html元素上移除，经常和display:none;配合使用： -->
+        <div v-cloak>{{ msg }}</div>
+    </template>
+
+    <script src="../vue.js"></script>
+    <script>
+        const App = {
+            template: '#tml',
+            data() {
+                return {
+                    msg: 'Hello World',
+                    count: 100,
+                    htl: '<span class="test">span标签</span>'
+                }
+            },
+            methods: {
+                addCount() {
+                    this.count++
+                }
+            }
+        }
+
+        Vue.createApp(App).mount('#app')
+    </script>
+</body>
+</html>

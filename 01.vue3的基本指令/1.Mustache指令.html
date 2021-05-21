@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <template id="tml">
+        <div>{{ msg }}</div>
+        <div>{{ count * 100 }}</div>
+        <div>{{ msg.split(" ").reverse().join(" ")}}</div> 
+        <div>{{ flag ? "啦啦啦" : "嘟嘟嘟" }}</div>
+        <!-- 还可以调用函数,和调用函数写法一样 -->
+        <div>{{ reverseStr() }}</div>
+        <!-- 计算属性也可以写在这里，但是要记得computed的使用和使用变量是一样的 -->
+        <div>{{ sumStr }}</div>
+    </template>
+
+    <script src="../vue.js"></script>
+    <script>
+        const App = {
+            template: '#tml',
+            data() {
+                return {
+                    msg: 'Hello World',
+                    count: 100,
+                    flag: false
+                }
+            },
+            computed: {
+                sumStr() {
+                    return this.msg + this.count
+                }
+            },
+            methods: {
+                reverseStr() {
+                    return this.msg.split(" ").reverse().join(" ")
+                }
+            }
+        }
+        Vue.createApp(App).mount('#app')
+    </script>
+</body>
+</html>
