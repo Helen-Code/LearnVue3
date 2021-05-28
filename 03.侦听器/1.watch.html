@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <template id="tml">
+
+        <button @click="changeValue">修改</button>
+        <button @click="changeinfo1">修改对象1</button>
+        <button @click="changeinfo2">修改对象2</button>
+        <button @click="changeinfo3">修改对象3</button>
+        <button @click="changeinfo4">修改对象3</button>
+    </template>
+
+    <script src="../vue.js"></script>
+    <script>
+        const App = {
+            template: '#tml',
+            data() {
+                return {
+                    headerName: 'James',
+                    info: {
+                        name: 'Helen',
+                        age: 18,
+                        other: {
+                            eat: 'chicken'
+                        }
+                    }
+                }
+            },
+            watch: {
+                // 基本写法，用于监听简单类型的数据
+                headerName(newValue, oldValue) {
+                    console.log(newValue, oldValue)
+                },
+                // 有配置项的写法,基本写法是无法监听到对象内部的属性值变化的
+                info: {
+                    handler(v) {
+                        console.log(v)
+                    },
+                    deep: true, // 设置deep属性后会深度监听watch的所有属性，如果属性值是对象，他的属性值修改也会被监听到
+                    immediate: true // 立即执行
+                }
+            },
+
+            methods: {
+                changeValue() {
+                    this.headerName = 'helen'
+                },
+                changeinfo1() {
+                    this.info = { name: "why", age: 18, nba: {name: 'kobe'} }
+                },
+                changeinfo2() {
+                    this.info.name = 'test'
+                },
+                changeinfo3() {
+                    this.info.other = {name: 'kobe'}
+                },
+                changeinfo4() {
+                    this.info.other.name = {name: 'kobe'}
+                },
+            }
+        }
+
+        Vue.createApp(App).mount('#app')
+    </script>
+</body>
+</html>

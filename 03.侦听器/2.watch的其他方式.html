@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <template id="tml">
+        <button @click="changeinfo1">修改对象1</button>
+        <button @click="changeinfo2">修改对象2</button>
+        <button @click="changeinfo3">修改对象3</button>
+        <button @click="changeinfo4">修改对象3</button>
+    </template>
+
+    <script src="../vue.js"></script>
+    <script>
+        const App = {
+            template: '#tml',
+            data() {
+                return {
+                    info: {
+                        name: 'Helen',
+                        age: 18,
+                        other: {
+                            eat: 'chicken'
+                        }
+                    }
+                }
+            },
+            watch: {
+                // 如果Info.name发生改变，无论是info对象整个改变还是只是该属性变化，都会被监听到
+                'info.name': function(v) {
+                    console.log(v)
+                }
+            },
+            created() {
+                const mywatch = this.$watch('info', function(v) {
+
+                })
+            },
+            methods: {
+                changeinfo1() {
+                    this.info = { name: "why", age: 18, nba: {name: 'kobe'} }
+                },
+                changeinfo2() {
+                    this.info.name = 'test'
+                },
+                changeinfo3() {
+                    this.info.other = {name: 'kobe'}
+                },
+                changeinfo4() {
+                    this.info.other.name = {name: 'kobe'}
+                },
+            }
+        }
+
+        Vue.createApp(App).mount('#app')
+    </script>
+</body>
+</html>

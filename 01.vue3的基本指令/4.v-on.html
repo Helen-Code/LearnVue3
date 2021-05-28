@@ -13,6 +13,10 @@
         <button @click="btnClick">点击按钮1</button>
         <!-- $event可以获取到事件发生时候的事件对象 -->
         <button @click="btn2Click($event,'helen',18)">点击按钮2</button>
+        <!-- v-on的事件修饰符 -->
+        <div @click="fatherClick">
+            <button @click.stop="sonClick">点击按钮3</button>
+        </div>
     </template>
 
     <script src="../vue.js"></script>
@@ -30,6 +34,12 @@
                 btn2Click(event, name, age) {
                     console.log('按钮2点击事件')
                     console.log(event, name, age)
+                },
+                fatherClick() {
+                    console.log('父元素点击事件')
+                },
+                sonClick() {
+                    console.log('子元素点击事件')
                 }
             }
         }

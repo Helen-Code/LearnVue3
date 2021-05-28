@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <template id="tml">
+        <div>
+            {{ fullName }}
+        </div>
+        <button @click="setCompute">设置新值</button>
+    </template>
+
+    <script src="../vue.js"></script>
+    <script>
+        const App = {
+            template: '#tml',
+            data() {
+                return {
+                    headerName: 'James',
+                    footerName: 'Boys',
+                }
+            },
+            computed: {
+                // computed有两种写法，一种是直接return，一种是写成get和set的形式
+                // 在源码中，会判断是计算属性是对象还是函数，如果是函数直接处理，如果是对象，那么取出get函数去处理
+                fullName() {
+                    return this.headerName + this.footerName
+                },
+                getFullName: {
+                    get() {
+                        return this.headerName + this.footerName
+                    },
+                    set(newValue) {
+                        console.log(newValue)
+                        const names = newValue.split(" ")
+                        this.headerName = names[0]
+                        this.footerName = names[1]
+                    }
+                }
+            },
+            methods: {
+                setCompute() {
+                    this.getFullName = 'Helen Tian'
+                }
+            },
+        }
+
+        Vue.createApp(App).mount('#app')
+    </script>
+</body>
+</html>
