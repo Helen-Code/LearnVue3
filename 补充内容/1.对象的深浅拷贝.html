@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const info = {name: 'Helen', eat: {drink: 'origin', food: 'fish'}}
+
+        // 1.浅拷贝
+        // Object.assign方法会创建一个新对象，然后将info中的每一项复制一次都放到这个新对象中，但如果这个对象的属性值是复杂类型的
+        // 复制过来的只是内存地址，并没有实现深拷贝
+        const obj = Object.assign({}, info)
+        console.log(obj)
+        // info.eat.drink = 'tea'
+        console.log(obj)
+
+        // 2.深拷贝
+        const obj2 = JSON.parse(JSON.stringify(info))
+        info.eat.drink = 'tea'
+        console.log(obj2)
+    </script>
+</body>
+</html>
